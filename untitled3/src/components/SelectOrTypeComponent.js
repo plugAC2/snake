@@ -1,26 +1,43 @@
 import React, {useState} from "react";
+import BrandOptionComponent from "./BrandOptionComponent";
 
-function SelectOrTypeConponent([...items]) {
+function SelectOrTypeComponent(...items) {
 
     const [value, setValue] = useState('');
+    const [brands, setBrands] = useState(items[0].items)
+    const [other, setOther] = useState("");
 
-    function makeOptions(x) {
-        x.map(item => {
-            return (
-                <option value={item}>{item}</option>
-            )
+    function handleButton(e) {
+        e.preventDefault()
+        setBrands(prev  => {
+            const array = prev;
+            array.pop();
+            const shortArray = array;
+            console.log(shortArray)
+            shortArray.push(other);
+            return shortArray;
         })
+        setValue(other);
     }
 
-    return(
+
+    return (
         <>
             <form>
                 <select value={value} onChange={e => setValue(e.target.value)}>
-                    {() => makeOptions(items)}
+                    <BrandOptionComponent brands={brands}/>
                 </select>
+                {
+                    (value === "Inna") && (
+                        <>
+                            <input type="text" value={other} onChange={e => setOther(e.target.value)}/>
+                            <button onClick={event => handleButton(event)}>Dodaj</button>
+                        </>
+                    )
+                }
             </form>
         </>
     )
 }
 
-export default SelectOrTypeConponent;
+export default SelectOrTypeComponent;
