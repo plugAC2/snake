@@ -1,15 +1,15 @@
-import {RANDOMISE_NEW_ELEMENT} from "./snakeActions";
+import {ADD_POINT} from "./snakeActions";
 
 const initialState = {
-    randomise: false
+    score: 0
 }
 
 export default function snakeReducer(state = initialState, {type}) {
     switch (type) {
-        case RANDOMISE_NEW_ELEMENT:
+        case ADD_POINT:
+            console.log("Dispatching")
             return {
-                ...state,
-                randomise: !state.randomise
+                score: state.score + 1
             }
         default:
             return state;

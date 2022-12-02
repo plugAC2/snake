@@ -1,7 +1,7 @@
-export const RANDOMISE_NEW_ELEMENT = "RANDOMISE_NEW_ELEMENT";
+export const ADD_POINT = "ADD_POINT";
 
 export const randomise = () => {
     return {
-        type: RANDOMISE_NEW_ELEMENT
+        type: ADD_POINT
     }
 }

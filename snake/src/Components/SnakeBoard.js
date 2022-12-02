@@ -8,10 +8,14 @@ import move from "../SnakeModifiers/move";
 import drawElement from "../Draw/drawElement";
 import newElement from "../Data/newElement";
 import {flag} from "../Collisions/newElementCollision";
+import {useDispatch, useSelector} from "react-redux";
+import {randomise} from "../Redux/snakeActions";
 
 let direction = "";
 
 export default function SnakeBoard(props) {
+    const dispatch = useDispatch();
+    const score = useSelector((state) => state.score)
 
     const canvasReference = useRef(null);
     const [snakeState, setSnakeState] = useState(snake);
@@ -48,19 +52,21 @@ export default function SnakeBoard(props) {
                 return [...move(snakeState, direction, element)]
             });
 
-            console.log(flag[0])
             if (flag[0]) {
                 setElement(newElement);
+                dispatch(randomise())
                 flag[0] = false;
             }
+
 
         }, 200)
 
 
-    }, [element, snakeState])
+    }, [dispatch, element, snakeState])
 
 
     return <div>
+        <p>{score}</p>
         <input onKeyDown={event => handleKeyPress(event)}/>
         <canvas id="board" ref={canvasReference} width={width} height={height} style={boardStyle} {...props}/>
     </div>

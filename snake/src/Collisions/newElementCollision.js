@@ -8,6 +8,5 @@ export default function newElementCollision(head, newElement) {
             flag[0] = true;
         }
     }
-    console.log(flag[0])
     return collides;
 }
