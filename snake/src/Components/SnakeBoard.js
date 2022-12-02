@@ -7,6 +7,7 @@ import {height, width} from "../Data/boardDimensions";
 import move from "../SnakeModifiers/move";
 import drawElement from "../Draw/drawElement";
 import newElement from "../Data/newElement";
+import {flag} from "../Collisions/newElementCollision";
 
 let direction = "";
 
@@ -15,7 +16,6 @@ export default function SnakeBoard(props) {
     const canvasReference = useRef(null);
     const [snakeState, setSnakeState] = useState(snake);
     const [element, setElement] = useState(newElement());
-
 
     const handleKeyPress = (event) => {
         console.log(event.key);
@@ -47,6 +47,12 @@ export default function SnakeBoard(props) {
             setSnakeState(() => {
                 return [...move(snakeState, direction, element)]
             });
+
+            console.log(flag[0])
+            if (flag[0]) {
+                setElement(newElement);
+                flag[0] = false;
+            }
 
         }, 200)
 

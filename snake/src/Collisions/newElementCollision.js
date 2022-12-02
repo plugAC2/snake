@@ -1,15 +1,13 @@
+export const flag = [false];
+
 export default function newElementCollision(head, newElement) {
     let collides = false;
-
-
     if (newElement !== undefined) {
-        console.log(head.x)
-        console.log(newElement.x)
         if (head.x === newElement.x && head.y === newElement.y) {
             collides = true;
+            flag[0] = true;
         }
     }
-    console.log(collides)
-
+    console.log(flag[0])
     return collides;
 }
