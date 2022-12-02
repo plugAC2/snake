@@ -1,17 +1,20 @@
-export default function moveUp(snake, direction){
-    let changeX = 0;
+import bodyCollision from "../Collisions/bodyCollision";
+import wallCollision from "../Collisions/wallCollision";
 
-    if (direction === "right") {
-        changeX = 10;
-    } else if (direction === "left") {
-        changeX = -10;
-    }
+export default function moveUp(snake){
+
     const headMoveUp = {x: snake[0].x, y: snake[0].y - 10}
     snake.unshift(headMoveUp);
-    snake.pop();
-    for (let i = 1; i < snake.length ; i++) {
 
+    if (bodyCollision(snake, snake[0])) {
+        return null;
     }
+
+    if (wallCollision(snake[0])) {
+        return null;
+    }
+
+    snake.pop();
 
     return snake;
 }

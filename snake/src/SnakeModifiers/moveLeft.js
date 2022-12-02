@@ -1,9 +1,20 @@
+import bodyCollision from "../Collisions/bodyCollision";
+import wallCollision from "../Collisions/wallCollision";
+
 export default function moveLeft(snake) {
-    console.log(snake)
+
     const snakeHeadNewPosition = {x: snake[0].x - 10, y: snake[0].y}
     snake.unshift(snakeHeadNewPosition);
+
+    if (bodyCollision(snake, snake[0])) {
+        return null;
+    }
+
+    if (wallCollision(snake[0])) {
+        return null;
+    }
+
     snake.pop();
-    console.log(snake)
 
     return snake;
 }
