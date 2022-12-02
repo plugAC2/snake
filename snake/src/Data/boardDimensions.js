@@ -1,2 +1,2 @@
-export const width = 500;
-export const height = 500;
+export const width = 600;
+export const height = 600;

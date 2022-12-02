@@ -1,11 +1,14 @@
+import {size} from "./elementSize";
+
 export default function newElement() {
-    const max = Math.floor(50);
-    const getRandomNumber = (max) => {
-        return Math.floor(Math.random() * max);
+    const getRandomNumber = () => {
+        return Math.floor(Math.random() * Math.floor(500 / size));
     }
+    const x = getRandomNumber() * size;
+    const y = getRandomNumber() * size;
 
     return {
-        x: getRandomNumber(49*10),
-        y: getRandomNumber(49*10)
+        x: x,
+        y: y
     }
 }
