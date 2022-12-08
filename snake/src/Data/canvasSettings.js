@@ -3,4 +3,5 @@ export const boardStyle = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
+    outline: "black 3px solid"
 }
