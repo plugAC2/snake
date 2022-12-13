@@ -6,7 +6,7 @@ import clearCanvas from "../Draw/clearCanvas";
 import snake from "../Data/snakeInit";
 import {height, width} from "../Data/boardDimensions";
 import move from "../SnakeModifiers/move";
-import drawElement from "../Draw/drawElement";
+import drawApple from "../Draw/drawApple";
 import newElement from "../Data/newElement";
 import {flagNewElement} from "../Collisions/newElementCollision";
 import {useDispatch, useSelector} from "react-redux";
@@ -27,7 +27,7 @@ export default function SnakeBoard(props) {
     const [element, setElement] = useState(newElement());
 
     const handleKeyPress = (event) => {
-        console.log(event.key);
+
         dispatch(start(true));
         switch (event.key) {
             case "ArrowRight" :
@@ -63,7 +63,7 @@ export default function SnakeBoard(props) {
                 const canvas = canvasReference.current;
                 const context = canvas.getContext("2d");
                 clearCanvas(context, canvas)
-                drawElement(context, element);
+                drawApple(context, element);
                 mainDraw(context, snakeState);
                 try {
                     setSnakeState(() => {
