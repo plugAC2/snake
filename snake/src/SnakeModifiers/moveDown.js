@@ -3,6 +3,7 @@ import wallCollision from "../Collisions/wallCollision";
 import newElementCollision from "../Collisions/newElementCollision";
 import {size} from "../Data/elementSize";
 import snakeInit from "../Data/snakeInit";
+import {direction} from "../Components/SnakeBoard";
 
 export default function moveDown(snake, element){
 

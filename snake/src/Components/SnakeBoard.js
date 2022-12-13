@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
+import Points from "./Points";
 import {boardStyle} from "../Data/canvasSettings";
 import mainDraw from "../Draw/mainDraw";
 import clearCanvas from "../Draw/clearCanvas";
@@ -11,9 +12,10 @@ import {flagNewElement} from "../Collisions/newElementCollision";
 import {useDispatch, useSelector} from "react-redux";
 import {addPoint, reset, start} from "../Redux/snakeActions";
 import {collisionWallAndBodyFlag} from "../Data/collisionWallAndBodyFlag";
+import Instructions from "./Instructions";
 
 
-let direction = "";
+export let direction = "";
 
 export default function SnakeBoard(props) {
     const dispatch = useDispatch();
@@ -29,16 +31,24 @@ export default function SnakeBoard(props) {
         dispatch(start(true));
         switch (event.key) {
             case "ArrowRight" :
-                direction = "RIGHT";
+                if (direction !== "LEFT") {
+                    direction = "RIGHT";
+                }
                 break;
             case "ArrowLeft" :
-                direction = "LEFT";
+                if (direction !== "RIGHT") {
+                    direction = "LEFT";
+                }
                 break;
             case "ArrowUp" :
-                direction = "UP";
+                if (direction !== "DOWN") {
+                    direction = "UP";
+                }
                 break;
             case "ArrowDown" :
-                direction = "DOWN";
+                if (direction !== "UP") {
+                    direction = "DOWN";
+                }
                 break;
             default:
                 direction = "RIGHT"
@@ -48,7 +58,6 @@ export default function SnakeBoard(props) {
     window.addEventListener('keydown', handleKeyPress)
 
     useEffect(() => {
-
         if (status) {
             setTimeout(() => {
                 const canvas = canvasReference.current;
@@ -71,6 +80,7 @@ export default function SnakeBoard(props) {
                 }
 
                 if (collisionWallAndBodyFlag[0]) {
+                    direction = "RIGHT";
                     dispatch(start(false));
                     dispatch(reset());
                     collisionWallAndBodyFlag[0] = false;
@@ -83,9 +93,12 @@ export default function SnakeBoard(props) {
     }, [dispatch, element, snakeState, status])
 
 
-    return <div>
-        <h1> Your score: {score}</h1>
-        {status && <button onClick={() => dispatch(start(false))}>PAUSE</button>}
-        <canvas id="board" ref={canvasReference} width={width} height={height} style={boardStyle} {...props}/>
-    </div>
+    return (
+        <>
+            <Points score={score}/>
+            <Instructions/>
+            {status && <button onClick={() => dispatch(start(false))}>PAUSE</button>}
+            <canvas id="board" ref={canvasReference} width={width} height={height} style={boardStyle} {...props}/>
+        </>
+    )
 }
